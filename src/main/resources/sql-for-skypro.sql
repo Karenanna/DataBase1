@@ -31,3 +31,9 @@ from employ where age=(select  min(age) from employ);
 
 select first_name as имя, max(age) as максимальный_возраст
 from employ group by имя having count(first_name) >1;
+
+select * from employ
+where age between 30 and 50
+order by first_name desc,
+         last_name
+
