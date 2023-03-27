@@ -37,3 +37,36 @@ where age between 30 and 50
 order by first_name desc,
          last_name
 
+CREATE TABLE city (
+    city_id BIGSERIAL NOT NULL PRIMARY KEY,
+    city_name VARCHAR(30) NOT NULL);
+
+ALTER TABLE employ ADD city_id INT;
+ALTER TABLE employ ADD CONSTRAINT city_id FOREIGN KEY(city_id) REFERENCES city(city_id);
+
+INSERT INTO city (city_name) VALUES ('Moscow');
+INSERT INTO city (city_name) VALUES ('Saint-Petersburg');
+INSERT INTO city (city_name) VALUES ('Sochi');
+INSERT INTO city (city_name) VALUES ('Novgorod');
+INSERT INTO city (city_name) VALUES ('Kazan');
+
+UPDATE employ SET city_id=1 WHERE id=1;
+UPDATE employ SET city_id=2 WHERE id=2;
+UPDATE employ SET city_id=4 WHERE id=4;
+UPDATE employ SET city_id=5 WHERE id=5;
+UPDATE employ SET city_id=5 WHERE id=7;
+UPDATE employ SET city_id=5 WHERE id=8;
+
+SELECT first_name, last_name, city_name FROM employe
+    INNER JOIN city ON employ.city_id=city.city_id;
+
+SELECT first_name, last_name, city_name FROM city
+   LEFT JOIN employ ON city.city_id=employ.city_id;
+
+SELECT first_name, city_name FROM employ FULL JOIN city ON employ.city_id=city.city_id;
+
+SELECT first_name, city_name FROM employ CROSS JOIN city;
+
+SELECT  city_name FROM city LEFT JOIN employ ON city.city_id=employ.city_id WHERE employ.first_name IS NULL;
+
+
